@@ -1,4 +1,4 @@
-var mySong, myPhrase, myPart;
+var mySong, myPhrase, myPart, myImage;
 var analyzer;
 var volume;
 var freq;
@@ -23,9 +23,11 @@ var slider2;
 var star_stop;
 var recorder;
 var file;
-var light=18;
+var light;
 var mic;
 var audioCtx;
+var myImage2;
+var myFont;
 
 
 
@@ -39,6 +41,9 @@ function preload(){
   guitar = loadSound("./assets/MBase01_MoogRingMod_04.wav");
   efx1 = loadSound("./assets/Vermona_Clap_01.wav");
   efx2 = loadSound("./assets/MBase01_Clean05.wav");
+  myImage = loadImage("./assets/leather.jpg");
+  myImage2 = loadImage("./assets/sfondo.jpg");
+  myFont = loadFont('./assets/Avenir.otf');
 }
 
 function setup() {
@@ -50,8 +55,9 @@ function setup() {
   myPart = new p5.Part();
   recorder = new p5.SoundRecorder();
   file = new p5.SoundFile();
-  // mic = new p5.AudioIn()
-  //  mic.start();
+  light=myImage2;
+  textFont(myFont);
+
 
 
 
@@ -132,16 +138,20 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+
+  background(light);
   var spectrum = analyzer.analyze();
   rectMode(CORNER)
-  fill(light)
+
+  fill(0,0,0,150)
+
+
   strokeWeight(1)
 
 
   //RETTANGOLI DI SFONDO
   rect(0,0,width/3,height/2);
-  rect(0,height/2,width/3,height/2);
+
 
   rect(0,height/2,width/3,height/2/3)
   push();
@@ -155,8 +165,9 @@ function draw() {
 
   rect(width/3,0,width/3,height/2);
   rect(width/3,height/2,width/3,height/2);
+
   rect(width-width/3,0,width/3,height/2);
-  rect(width-width/3,height/2,width/3,height/2);
+
 
   rect(width-width/3,height/2+height/2/3,width/3,height/2/3)
   push();
@@ -165,7 +176,12 @@ function draw() {
   rect(width-width/3,height/2+height/3,width/3,height/2/3)
   pop();
 
+  // image(myImage, width/3,height/2,width/3,height/2);
+  // myImage.filter(BLUR, 10)
+
+
   textSize(32);
+  noStroke();
   textAlign(CENTER,CENTER)
   fill(200,0,0)
   text('R to record', 0, height/2, width/3, height/2/3);
@@ -359,13 +375,14 @@ function keyPressed(){
 
 
   if (key==="r") {
-    recorder.setInput(mic)
+    //recorder.setInput(mic)
     recorder.record(file);
-    light="#381d1d"
+    // light="#381d1d"
+    light = myImage;
   }
    if (key==="s") {
     recorder.stop();
-    light=18
+    light = myImage2;
   }
    if (key==="d") {
     save(file, 'beat');
