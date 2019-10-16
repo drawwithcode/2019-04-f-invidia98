@@ -375,7 +375,7 @@ function keyPressed(){
 
 
   if (key==="r") {
-    audioCtx.resume();
+    
     //recorder.setInput(mic)
     recorder.record(file);
     // light="#381d1d"
