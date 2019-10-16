@@ -365,7 +365,7 @@ function Balls(y){
 
 function keyPressed(){
   if (keyCode===13) {
-    audioCtx.resume()
+    getAudioContext().resume()
     myPart.loop();
     start_stop=0;
   }else if (keyCode===8) {
@@ -375,7 +375,7 @@ function keyPressed(){
 
 
   if (key==="r") {
-    
+
     //recorder.setInput(mic)
     recorder.record(file);
     // light="#381d1d"
